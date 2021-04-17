@@ -1,0 +1,19 @@
+{
+  "name": "portafoli-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KenethSandoval/portafolio_backend.git"
+  },
+  "author": "@kenethSandoval <kenethra.74@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KenethSandoval/portafolio_backend/issues"
+  },
+  "homepage": "https://github.com/KenethSandoval/portafolio_backend#readme"
+}
