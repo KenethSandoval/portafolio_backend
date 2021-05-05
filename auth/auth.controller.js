@@ -1,33 +1,61 @@
 const crypto = require('../tools/crypto');
+const { to } = require('../tools/to');
 
-let authDatabase = {};
+const AuthModel = require('./auth.model');
+
+//Esto es para limpiar los test
+const clearUpUser = () => {
+  return new Promise(async (resolve, reject) => {
+    await AuthModel.deleteMany({}).exec();
+    resolve();
+  });
+}
 
 const registerUser = (email, password) => {
-  let hashedPwd = crypto.hashPasswordSync(password);
-
-  let userId = '412412-214f42-3113fe';
-  authDatabase[userId] = {
-    email: email,
-    password: hashedPwd
-  }
+  return new Promise(async (resolve, reject) => {
+    let hashedPwd = crypto.hashPasswordSync(password);
+    let newUser = new AuthModel({
+      email: email,
+      password: hashedPwd
+    });
+    await newUser.save();
+    resolve();
+  });
 }
+
+registerUser('test@gmail.com', '123456');
 
 const getUserIdFromUserName = (email) => {
-  for (let user in authDatabase) {
-    if (authDatabase[user].email === email) {
-      let userData = authDatabase[user];
-      userData.userId = user;
-      return userData;
+  return new Promise(async (resolve, reject) => {
+    let [err, result] = await to(AuthModel.findOne({email: email}).exec());
+    if (err) {
+      return reject(err);
     }
-  }
+    resolve(result);
+  });  
 }
 
-const checkUserCredentials = (email, password, done) => {
-  let user = getUserIdFromUserName(email);
+const checkUserCredentials = (email, password) => {
+  return new Promise(async (resolve, reject) => {
+    let [err, user] = await to(getUserIdFromUserName(email));
 
-  if (user) {
-    crypto.comparePassword(password, user.password, done);
-  } else {
-    done('Missing user');
-  }
+    if (!err || user) {
+      crypto.comparePassword(password, user.password, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    } else {
+      reject('Missing user');
+    }
+  });
+}
+
+module.exports = {
+  checkUserCredentials,
+  registerUser,
+  getUserIdFromUserName,
+  clearUpUser
 }

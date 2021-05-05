@@ -4,10 +4,10 @@ const chaiHttp = require('chai-http');
 
 chai.use(chaiHttp);
 
-const app = require('../../index');
+const app = require('../../index').app;
 
 describe('Suite prueba e2e', () => {
-  it('should return hello wordl start server', (done) => {
+  it('should return hello world start server', (done) => {
     chai.request(app)
       .get('/')
       .end((err, res) => {

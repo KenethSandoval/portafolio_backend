@@ -5,7 +5,7 @@ const hashPassword = (plaintTextPwd, done) => {
 }
 
 const hashPasswordSync = (plaintText) => {
-  bcrypt.compareSync(plaintText, 10)
+  return bcrypt.hashSync(plaintText, 10)
 }
 
 const comparePassword = (plaintTextPwd, hashPwd, done) => {
