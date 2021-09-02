@@ -4,3 +4,4 @@ docs
 dist
 CHANGELOG.md
 package-lock.json
+coverage
