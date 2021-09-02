@@ -2,7 +2,7 @@ import app from "../src/index";
 import supertest from "supertest";
 
 describe("e2e start server", () => {
-  test("GET /", async () => {
+  it("GET /", async () => {
     await supertest(app)
       .get("/")
       .expect(200)

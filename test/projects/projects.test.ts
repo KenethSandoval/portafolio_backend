@@ -11,8 +11,8 @@ afterEach(done => {
   done();
 });*/
 
-describe("Suite test for project", () => {
-  test("GET /project should return 404 for void data", async () => {
+describe("Suite it for project", () => {
+  it("GET /project should return 404 for void data", async () => {
     await supertest(app)
       .get("/project")
       .expect(404)
@@ -23,7 +23,7 @@ describe("Suite test for project", () => {
       });
   });
 
-  test("POST /project should return 201 for new project", async () => {
+  it("POST /project should return 201 for new project", async () => {
     await supertest(app)
       .post("/project")
       .send({
@@ -40,7 +40,7 @@ describe("Suite test for project", () => {
       });
   });
 
-  test("POST /project should return 400 for missing data", async () => {
+  it("POST /project should return 400 for missing data", async () => {
     await supertest(app)
       .post("/project")
       .expect(400)
