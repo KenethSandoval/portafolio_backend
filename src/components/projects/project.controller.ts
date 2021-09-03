@@ -1,32 +1,19 @@
-//import { Projects } from "./project.model";
+import { Projects } from "./project.model";
 
-export function getAll(): LazyList<IProjectFake> {
-  return () => {
-    const projectFake = [
-      {
-        _id: "1",
-        title: "Angular ADMIN PRO",
-        description: "Panel de administrador de un sistema de hospital",
-        urlGithub: "https://github.com/KenethSandoval/Angualar-AdminPro",
-        tags: ["Angular", "Node js"],
-        urlDemo: "https://adminpro.com",
-        image: "imagen.png",
-      },
-      {
-        _id: "2",
-        title: "Angular ADMIN PRO",
-        description: "Panel de administrador de un sistema de hospital",
-        urlGithub: "https://github.com/KenethSandoval/Angualar-AdminPro",
-        tags: ["Angular", "Node js"],
-        urlDemo: "https://adminpro.com",
-        image: "imagen.png",
-      },
-    ];
-    if (projectFake.length === 0) {
+type Lazy<T> = () => Promise<T>;
+
+type LazyList<T> = Lazy<{
+  allData: Lazy<T>;
+}>;
+
+export async function getAll(): Promise<LazyList<IProjectSchema[]>> {
+  return async (): Promise<any> => {
+    const project: IProjectSchema[] = await Projects.find({});
+    if (project.length === 0) {
       throw { code: 404, message: "Void" };
     } else {
       return {
-        head: () => projectFake,
+        allData: () => project,
       };
     }
   };

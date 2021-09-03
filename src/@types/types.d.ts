@@ -1,8 +1,8 @@
-type Lazy<T> = () => T;
+/*type Lazy<T> = () => T;
 
 type LazyList<T> = Lazy<{
   head: Lazy<T[]>;
-} | void>;
+} | void>;*/
 
 type SuccessCodes = 200 | 201;
 

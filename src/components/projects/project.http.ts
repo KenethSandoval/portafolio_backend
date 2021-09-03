@@ -5,10 +5,15 @@ import { getAll } from "./project.controller";
 
 export const getProjects = async (_: Request, res: Response) => {
   try {
-    const data = getAll()()!.head();
-    return success(res, { data, message: "OK" }, 200);
+    const data = await getAll().then((res: any) => {
+      return res().then((res2: any) => {
+        return res2.allData();
+      });
+    });
+
+    return success(res, data, 200);
   } catch (e) {
-    return error(res, e.code, e.message);
+    return error(res, e.message, e.code);
   }
 };
 

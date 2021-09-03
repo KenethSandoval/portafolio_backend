@@ -1,9 +1,9 @@
 import app from "../../src/index";
 import supertest from "supertest";
-import mongoose from "mongoose";
+//import mongoose from "mongoose";
 //import { Users } from "../../src/components/auth/auth.model";
 
-beforeEach(done => {
+/*beforeEach(done => {
   mongoose.connect("mongodb://localhost:27017/it_portfolio", () => done());
 });
 
@@ -11,7 +11,7 @@ afterEach(done => {
   mongoose.connection.db.dropDatabase(() => {
     mongoose.connection.close(() => done());
   });
-});
+});*/
 
 describe("Suite it for auth", () => {
   it("POST /login should return 400 for missing data", async () => {

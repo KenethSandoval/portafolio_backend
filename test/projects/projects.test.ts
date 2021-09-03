@@ -15,10 +15,9 @@ describe("Suteste it for project", () => {
   test("GET /project should return 200 for all data", async () => {
     await supertest(app)
       .get("/project")
-      .expect(200)
+      .expect(404)
       .then(response => {
-        expect(Array.isArray(response.body.data.data)).toBeTruthy();
-        expect(response.body.messageStatus).toBe("OK!");
+        expect(response.body.messageStatus).toBe("NOT FOUND!");
       });
   });
 
