@@ -1,20 +1,21 @@
 import { Request, Response } from "express";
+import { success, error } from "../../utils/response";
+
 import { getAll } from "./project.controller";
 
 export const getProjects = async (_: Request, res: Response) => {
   try {
     const data = getAll()()!.head();
-
-    return res.status(200).json({ data, message: "OK" });
+    return success(res, { data, message: "OK" }, 200);
   } catch (e) {
-    return res.status(e.code).json({ code: e.code, message: e.message });
+    return error(res, e.code, e.message);
   }
 };
 
 export const createProjects = async (req: Request, res: Response) => {
   if (!req.body.title || !req.body.description) {
-    return res.status(400).json({ message: "Missing data" });
+    return error(res, "Missing data", 400);
   }
 
-  return res.status(201).json({ message: "Created" });
+  return success(res, {}, 201);
 };

@@ -17,9 +17,8 @@ describe("Suteste it for project", () => {
       .get("/project")
       .expect(200)
       .then(response => {
-        expect(Array.isArray(response.body.data)).toBeTruthy();
-        expect(response.body.data.length).toEqual(response.body.data.length);
-        expect(response.body.message).toBe("OK");
+        expect(Array.isArray(response.body.data.data)).toBeTruthy();
+        expect(response.body.messageStatus).toBe("OK!");
       });
   });
 
@@ -36,7 +35,7 @@ describe("Suteste it for project", () => {
       })
       .expect(201)
       .then(response => {
-        expect(response.body.message).toBe("Created");
+        expect(response.body.messageStatus).toBe("CREATED!");
       });
   });
 
@@ -45,7 +44,8 @@ describe("Suteste it for project", () => {
       .post("/project")
       .expect(400)
       .then(response => {
-        expect(response.body.message).toBe("Missing data");
+        console.log(response.body);
+        expect(response.body.msg).toBe("Missing data");
       });
   });
 });
