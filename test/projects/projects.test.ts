@@ -11,27 +11,27 @@ afterEach(done => {
   done();
 });*/
 
-describe("Suite it for project", () => {
-  it("GET /project should return 404 for void data", async () => {
+describe("Suteste it for project", () => {
+  test("GET /project should return 200 for all data", async () => {
     await supertest(app)
       .get("/project")
-      .expect(404)
+      .expect(200)
       .then(response => {
-        //expect(Array.isArray(response.body)).toBeTruthy();
-        //expect(response.body.length).toEqual(0);
-        expect(response.body.message).toBe("Void");
+        expect(Array.isArray(response.body.data)).toBeTruthy();
+        expect(response.body.data.length).toEqual(response.body.data.length);
+        expect(response.body.message).toBe("OK");
       });
   });
 
-  it("POST /project should return 201 for new project", async () => {
+  test("POST /project should return 201 for new project", async () => {
     await supertest(app)
       .post("/project")
       .send({
         title: "Angular ADMIN PRO",
-        description: "Panel de administrador de un sistema de hospital",
+        description: "Panel de administrador de un sistema de hosptestal",
         imagen: "imagen.png",
         urlDemo: "https://adminpro.com",
-        urlGithub: "https://github.com/KenethSandoval/Angualar-AdminPro",
+        urlGtesthub: "https://github.com/KenethSandoval/Angualar-AdminPro",
         tags: ["Angular", "Node js"],
       })
       .expect(201)
@@ -40,7 +40,7 @@ describe("Suite it for project", () => {
       });
   });
 
-  it("POST /project should return 400 for missing data", async () => {
+  test("POST /project should return 400 for missing data", async () => {
     await supertest(app)
       .post("/project")
       .expect(400)

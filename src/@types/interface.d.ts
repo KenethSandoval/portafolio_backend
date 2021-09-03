@@ -5,3 +5,24 @@ interface IUserSchema extends TMongoDocument {
   email: string;
   password: string;
 }
+
+// Interface Project
+interface IProjectSchema extends TMongoDocument {
+  _id: string;
+  title: string;
+  description: string;
+  urlGithub: string;
+  tags: Array<string>;
+  urlDemo?: string;
+  image?: string;
+}
+
+interface IProjectFake {
+  _id: string;
+  title: string;
+  description: string;
+  urlGithub: string;
+  tags: Array<string>;
+  urlDemo: string;
+  image: string;
+}

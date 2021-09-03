@@ -1,11 +1,32 @@
-export function getAll<T>(xs: T[]): LazyList<T> {
+import { Projects } from "./project.model";
+
+export function getAll(): LazyList<IProjectFake> {
   return () => {
-    if (xs.length === 0) {
+    const projectFake = [
+      {
+        _id: "1",
+        title: "Angular ADMIN PRO",
+        description: "Panel de administrador de un sistema de hospital",
+        urlGithub: "https://github.com/KenethSandoval/Angualar-AdminPro",
+        tags: ["Angular", "Node js"],
+        urlDemo: "https://adminpro.com",
+        image: "imagen.png",
+      },
+      {
+        _id: "2",
+        title: "Angular ADMIN PRO",
+        description: "Panel de administrador de un sistema de hospital",
+        urlGithub: "https://github.com/KenethSandoval/Angualar-AdminPro",
+        tags: ["Angular", "Node js"],
+        urlDemo: "https://adminpro.com",
+        image: "imagen.png",
+      },
+    ];
+    if (projectFake.length === 0) {
       throw { code: 404, message: "Void" };
     } else {
       return {
-        head: () => xs[0],
-        tail: getAll(xs.slice(1)),
+        head: () => projectFake,
       };
     }
   };

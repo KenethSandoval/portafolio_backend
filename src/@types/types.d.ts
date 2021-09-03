@@ -1,8 +1,7 @@
 type Lazy<T> = () => T;
 
 type LazyList<T> = Lazy<{
-  head: Lazy<T>;
-  tail: LazyList<T>;
+  head: Lazy<T[]>;
 } | void>;
 
 type TMongoId = import("mongoose").Schema.Types.ObjectId;

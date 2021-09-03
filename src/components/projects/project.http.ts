@@ -3,11 +3,11 @@ import { getAll } from "./project.controller";
 
 export const getProjects = async (_: Request, res: Response) => {
   try {
-    const data = getAll([]);
-    console.log(data);
-    return res.status(200).json({ message: "OK" });
+    const data = getAll()()!.head();
+
+    return res.status(200).json({ data, message: "OK" });
   } catch (e) {
-    return res.status(e.code).json(e.message);
+    return res.status(e.code).json({ code: e.code, message: e.message });
   }
 };
 
