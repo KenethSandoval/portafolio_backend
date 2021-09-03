@@ -5,10 +5,8 @@ import { getAll } from "./project.controller";
 
 export const getProjects = async (_: Request, res: Response) => {
   try {
-    const data = await getAll().then((res: any) => {
-      return res().then((res2: any) => {
-        return res2.allData();
-      });
+    const data = await getAll()().then(res => {
+      return res!.allData();
     });
 
     return success(res, data, 200);
