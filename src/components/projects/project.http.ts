@@ -1,14 +1,36 @@
 import { Request, Response } from "express";
 import { success, error } from "../../utils/response";
 
-import { getAll } from "./project.controller";
+import { create, getAll, getById } from "./project.controller";
 
-export const getProjects = async (_: Request, res: Response) => {
+export const createProject: Handler = async (req, res) => {
+  try {
+    const data = await create(req.body)();
+    console.log(data);
+    return success(res, data, 201);
+  } catch (e) {
+    return error(res, e.message, e.code);
+  }
+};
+
+export const getProjects: Handler = async (_, res) => {
   try {
     const data = await getAll()().then(res => {
       return res!.allData();
     });
 
+    return success(res, data, 200);
+  } catch (e) {
+    return error(res, e.message, e.code);
+  }
+};
+
+export const getProjectById: Handler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = (await getById(id)().then(res => {
+      return res!.allData();
+    })) as Object | string;
     return success(res, data, 200);
   } catch (e) {
     return error(res, e.message, e.code);
