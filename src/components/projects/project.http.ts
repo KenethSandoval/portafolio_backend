@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
 import { success, error } from "../../utils/response";
 
-import { create, getAll, getById } from "./project.controller";
+import { create, getAll, getById, deleted } from "./project.controller";
 
 export const createProject: Handler = async (req, res) => {
   try {
@@ -39,10 +38,12 @@ export const getProjectById: Handler = async (req, res) => {
   }
 };
 
-export const createProjects = async (req: Request, res: Response) => {
-  if (!req.body.title || !req.body.description) {
-    return error(res, "Missing data", 400);
+export const deleteProject: Handler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await deleted(id)().then();
+    return success(res, "Deleted", 200);
+  } catch (e) {
+    return error(res, e.message, e.code);
   }
-
-  return success(res, {}, 201);
 };

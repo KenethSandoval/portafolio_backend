@@ -2,7 +2,7 @@ type Lazy<T> = () => Promise<T>;
 
 type LazyList<T> = Lazy<{
   allData: Lazy<T>;
-} | void>;
+}>;
 
 type SuccessCodes = 200 | 201;
 

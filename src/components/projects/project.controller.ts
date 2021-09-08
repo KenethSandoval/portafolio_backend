@@ -33,10 +33,24 @@ export function getById(id: string): LazyList<IProjectSchema | null> {
   return async (): Promise<any> => {
     const project: IProjectSchema | null = await Projects.findById(id);
     if (!project) {
-      throw { code: 404, message: "User not found" };
+      throw { code: 404, message: "Project not found" };
     } else {
       return {
         allData: () => project,
+      };
+    }
+  };
+}
+
+export function deleted(id: string): LazyList<IProjectSchema | null> {
+  return async (): Promise<any> => {
+    const project = await Projects.findById(id);
+    if (!project) {
+      throw { code: 404, message: "Project not found" };
+    } else {
+      const projectDelete = await Projects.findByIdAndDelete(id);
+      return {
+        allData: () => projectDelete,
       };
     }
   };
