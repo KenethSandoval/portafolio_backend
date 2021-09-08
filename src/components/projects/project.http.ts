@@ -5,8 +5,10 @@ import { create, getAll, getById } from "./project.controller";
 
 export const createProject: Handler = async (req, res) => {
   try {
-    const data = await create(req.body)();
-    console.log(data);
+    const data = await create(req.body)().then(res => {
+      return res!.allData();
+    });
+
     return success(res, data, 201);
   } catch (e) {
     return error(res, e.message, e.code);

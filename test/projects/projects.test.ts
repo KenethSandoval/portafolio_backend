@@ -29,7 +29,7 @@ describe("Suteste it for project", () => {
         description: "Panel de administrador de un sistema de hosptestal",
         imagen: "imagen.png",
         urlDemo: "https://adminpro.com",
-        urlGtesthub: "https://github.com/KenethSandoval/Angualar-AdminPro",
+        urlGithub: "https://github.com/KenethSandoval/Angualar-AdminPro",
         tags: ["Angular", "Node js"],
       })
       .expect(201)
