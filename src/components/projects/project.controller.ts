@@ -1,7 +1,7 @@
 import { Projects } from "./project.model";
 
 export function create(body: IProjectSchema): LazyList<IProjectSchema> {
-  return async (): Promise<any> => {
+  return async (): Promise<{ allData: Lazy<IProjectSchema> }> => {
     if (!body.title || !body.description || !body.urlGithub || !body.tags) {
       throw { code: 400, message: "Missing data" };
     } else {
@@ -10,7 +10,11 @@ export function create(body: IProjectSchema): LazyList<IProjectSchema> {
       });
       await newProject.save();
       return {
-        allData: () => newProject,
+        allData: () => {
+          new Promise((resolve, _) => {
+            resolve(newProject);
+          });
+        },
       };
     }
   };
