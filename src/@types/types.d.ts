@@ -1,4 +1,4 @@
-type Lazy<T> = () => Promise<T>;
+type Lazy<T> = () => Promise<T> | void;
 
 type LazyList<T> = Lazy<{
   allData: Lazy<T>;
