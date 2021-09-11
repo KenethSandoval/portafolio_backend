@@ -7,11 +7,7 @@ export function uploadImage<T>(models: any, id: T, nameFile: T): LazyList<boolea
     const model = models.findById(id);
     if (!model) {
       return {
-        allData: () => {
-          new Promise((_, reject) => {
-            reject(false);
-          });
-        },
+        allData: () => false,
       };
     }
 
@@ -23,11 +19,7 @@ export function uploadImage<T>(models: any, id: T, nameFile: T): LazyList<boolea
     model.image = nameFile;
     await model.save();
     return {
-      allData: () => {
-        new Promise((resolve, _) => {
-          resolve(true);
-        });
-      },
+      allData: () => true,
     };
   };
 }

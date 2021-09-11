@@ -10,11 +10,7 @@ export function create(body: IProjectSchema): LazyList<IProjectSchema> {
       });
       await newProject.save();
       return {
-        allData: () => {
-          new Promise((resolve, _) => {
-            resolve(newProject);
-          });
-        },
+        allData: () => newProject,
       };
     }
   };
