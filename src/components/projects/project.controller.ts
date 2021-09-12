@@ -17,7 +17,7 @@ export function create(body: IProjectSchema): LazyList<IProjectSchema> {
 }
 
 export function getAll(): LazyList<IProjectSchema[]> {
-  return async (): Promise<any> => {
+  return async (): Promise<{ allData: Lazy<IProjectSchema[]> }> => {
     const projects: IProjectSchema[] = await Projects.find({});
     if (projects.length === 0) {
       throw { code: 404, message: "Void" };
@@ -30,7 +30,7 @@ export function getAll(): LazyList<IProjectSchema[]> {
 }
 
 export function getById(id: string): LazyList<IProjectSchema | null> {
-  return async (): Promise<any> => {
+  return async (): Promise<{ allData: Lazy<IProjectSchema | null> }> => {
     const project: IProjectSchema | null = await Projects.findById(id);
     if (!project) {
       throw { code: 404, message: "Project not found" };
@@ -43,7 +43,7 @@ export function getById(id: string): LazyList<IProjectSchema | null> {
 }
 
 export function deleted(id: string): LazyList<IProjectSchema | null> {
-  return async (): Promise<any> => {
+  return async (): Promise<{ allData: Lazy<IProjectSchema | null> }> => {
     const project = await Projects.findById(id);
     if (!project) {
       throw { code: 404, message: "Project not found" };
