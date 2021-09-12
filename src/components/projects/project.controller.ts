@@ -1,4 +1,10 @@
+import path from "path";
+import fs from "fs";
+
+import { v4 as uuidv4 } from "uuid";
+
 import { Projects } from "./project.model";
+import { uploadImage } from "../../utils/upload-images";
 
 export function create(body: IProjectSchema): LazyList<IProjectSchema> {
   return async (): Promise<{ allData: Lazy<IProjectSchema> }> => {
@@ -51,6 +57,18 @@ export function deleted(id: string): LazyList<IProjectSchema | null> {
       const projectDelete = await Projects.findByIdAndDelete(id);
       return {
         allData: () => projectDelete,
+      };
+    }
+  };
+}
+
+export function fileUpload(id: string, data: any): LazyList<string> {
+  return () => {
+    if (!data.files || Object.keys(data.files).length === 0) {
+      throw { message: "Missing file", code: 400 };
+    } else {
+      return {
+        allData: () => "image.jpg",
       };
     }
   };

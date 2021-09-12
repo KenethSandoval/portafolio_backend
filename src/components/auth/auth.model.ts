@@ -13,6 +13,7 @@ const usersSchema = new Schema<IUserSchema>({
     type: String,
     required: true,
   },
+  image: String,
 });
 
 export const Users = model<IUserSchema>("Users", usersSchema);

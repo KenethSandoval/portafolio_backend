@@ -1,17 +1,24 @@
 import { existsSync, unlinkSync } from "fs";
+import { Projects } from "../components/projects/project.model";
+import { Users } from "../components/auth/auth.model";
 
-let oldPath: string;
-//FIXME: arreglar el tipo any de model, y quitar la variable oldPath;
-export function uploadImage<T>(models: any, id: T, nameFile: T): LazyList<boolean> {
+type modelsValid = typeof Projects | typeof Users;
+
+export function uploadImage(
+  models: modelsValid,
+  id: string,
+  nameFile: string
+): LazyList<boolean> {
   return async (): Promise<{ allData: Lazy<boolean> }> => {
-    const model = models.findById(id);
+    const model = await models.findById(id);
+
     if (!model) {
       return {
         allData: () => false,
       };
     }
 
-    oldPath = `src/uploads/${model.image}`;
+    const oldPath: string = `src/uploads/${model.image}`;
 
     if (existsSync(oldPath)) {
       unlinkSync(oldPath);

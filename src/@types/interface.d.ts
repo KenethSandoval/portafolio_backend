@@ -4,6 +4,7 @@ interface IUserSchema extends TMongoDocument {
   name: string;
   email: string;
   password: string;
+  image?: string;
 }
 
 // Interface Project
