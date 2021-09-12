@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import { existsSync } from "fs";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -67,8 +67,46 @@ export function fileUpload(id: string, data: any): LazyList<string> {
     if (!data.files || Object.keys(data.files).length === 0) {
       throw { message: "Missing file", code: 400 };
     } else {
+      const file = data.files.image;
+      const cutName: Array<string> = file.name.split(".");
+      const extensionFile = cutName[cutName.length - 1];
+
+      const extensionsValid: Array<string> = ["png", "jpg", "jpeg", "gif"];
+
+      if (!extensionsValid.includes(extensionFile)) {
+        throw { message: `Extension .${extensionFile} not valid`, code: 400 };
+      }
+
+      const nameFile = `${uuidv4()}.${extensionFile}`;
+
+      const path: string = `src/uploads/${nameFile}`;
+
+      file.mv(path, async (err: Error) => {
+        if (err) {
+          console.log(err.message);
+          throw { message: "Failed upload", code: 500 };
+        }
+        await uploadImage(Projects, id, nameFile)();
+      });
+
       return {
-        allData: () => "image.jpg",
+        allData: () => nameFile,
+      };
+    }
+  };
+}
+
+export function returnImage(image: string): LazyList<string> {
+  return () => {
+    const pathImg: string = path.join(__dirname, `../../uploads/${image}`);
+
+    if (existsSync(pathImg)) {
+      return {
+        allData: () => pathImg,
+      };
+    } else {
+      return {
+        allData: () => "no-image",
       };
     }
   };

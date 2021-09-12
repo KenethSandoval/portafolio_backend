@@ -1,8 +1,14 @@
 import { success, error } from "../../utils/response";
 
-import { create, getAll, getById, deleted } from "./project.controller";
+import {
+  create,
+  getAll,
+  getById,
+  deleted,
+  fileUpload,
+  returnImage,
+} from "./project.controller";
 
-//FIXME: no retorna la data
 export const createProject: Handler = async (req, res) => {
   try {
     const result = await create(req.body)();
@@ -41,6 +47,28 @@ export const deleteProject: Handler = async (req, res) => {
   try {
     await deleted(id)();
     return success(res, "Deleted", 200);
+  } catch (e) {
+    return error(res, e.message, e.code);
+  }
+};
+
+export const uploads: Handler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await fileUpload(id, req)();
+    const data = result!.allData();
+    return success(res, data, 200);
+  } catch (e) {
+    return error(res, e.message, e.code);
+  }
+};
+
+export const viewImage: Handler = async (req, res) => {
+  const { image } = req.params;
+  try {
+    const result = await returnImage(image)();
+    const data = result!.allData() as string;
+    return res.sendFile(data);
   } catch (e) {
     return error(res, e.message, e.code);
   }
