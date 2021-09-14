@@ -1,4 +1,5 @@
 import express, { Application } from "express";
+import cors from "cors";
 import { connect } from "mongoose";
 import { router as routerAuth } from "./components/auth/auth.route";
 import { router as routerProject } from "./components/projects/project.route";
@@ -8,6 +9,7 @@ const app: Application = express();
 //Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 //Routes
 app.use("/auth", routerAuth);
