@@ -1,7 +1,7 @@
 import app from "./app";
 import { config } from "dotenv";
 config();
-const port = 3000;
+const port = process.env.PORT;
 
 import { Request, Response } from "express";
 

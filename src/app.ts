@@ -19,8 +19,9 @@ connect("mongodb://localhost:27017/portafolio", () => {
   console.log(">>DB online");
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server on liste http://localhost:${process.env.PORT}`);
-});
+if (process.env.NODE_ENV !== "test")
+	app.listen(process.env.PORT, () => {
+  	console.log(`Server on listen http://localhost:${process.env.PORT}`);
+	});
 
 export default app;
