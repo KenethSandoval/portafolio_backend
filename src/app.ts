@@ -15,16 +15,21 @@ app.use(cors());
 app.use("/auth", routerAuth);
 app.use("/project", routerProject);
 
-connect(
-	"mongodb+srv://ksandoval:15052002@cluster0.x3sdc.mongodb.net/?retryWrites=true&w=majority",
-  /*connect("mongodb://localhost:27017/portafolio"*/() => {
-		console.log(">> DB online");
+const dbConnection = async () => {
+	try {
+		await connect("mongodb://localhost:27017/portafolio");
+		console.log(">>DB online");
+	} catch (e) {
+		console.error(e);
+		throw new Error("Error al iniciar la base de datos");
 	}
-);
+};
+
+dbConnection();
 
 if (process.env.NODE_ENV !== "test")
-	app.listen(process.env.PORT, () => {
-		console.log(`Server on listen http://localhost:${process.env.PORT}`);
+	app.listen(process.env.PORT || 3000, () => {
+		console.log(`Server on listen http://localhost:${process.env.PORT || 3000}`);
 	});
 
 export default app;
