@@ -1,11 +1,11 @@
 import { existsSync, unlinkSync } from "fs";
 import { Projects } from "../components/projects/project.model";
-import { Users } from "../components/auth/auth.model";
+// import { Users } from "../components/auth/auth.model";
 
-type modelsValid = typeof Projects | typeof Users;
+// type modelsValid = typeof Projects | typeof Users;
 
 export function uploadImage(
-  models: modelsValid,
+  models: typeof Projects,
   id: string,
   nameFile: string
 ): LazyList<boolean> {

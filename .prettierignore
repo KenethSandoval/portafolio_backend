@@ -5,4 +5,4 @@ dist
 CHANGELOG.md
 package-lock.json
 coverage
-mongo_data
+mongo_data/
