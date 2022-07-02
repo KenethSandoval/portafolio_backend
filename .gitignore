@@ -5,3 +5,5 @@ src/uploads
 mongo_data
 .log/
 dist/
+src/public
+

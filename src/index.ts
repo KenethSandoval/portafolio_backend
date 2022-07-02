@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
+import path from "path";
 import app from "./app";
 
-app.get("/", (_: Request, res: Response) => {
-  res.send("Hello world");
+app.get("*", (_: Request, res: Response) => {
+  res.sendFile(path.resolve(__dirname, "public/index.html"));
 });
-
-// if (process.env.NODE_ENV !== "test") app.listen(port);
 
 export default app;

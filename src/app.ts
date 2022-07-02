@@ -2,6 +2,7 @@ import cors from "cors";
 import { config } from "dotenv";
 import express, { Application } from "express";
 import { connect } from "mongoose";
+import path from "path";
 import { router as routerAuth } from "./components/auth/auth.route";
 import { router as routerProject } from "./components/projects/project.route";
 
@@ -13,6 +14,7 @@ const app: Application = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.static(path.join(__dirname, "public")));
 
 //Routes
 app.use("/auth", routerAuth);
