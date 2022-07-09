@@ -1,3 +1,4 @@
+import { v2 as cloudinary } from "cloudinary";
 import cors from "cors";
 import { config } from "dotenv";
 import express, { Application } from "express";
@@ -31,6 +32,11 @@ const dbConnection = async () => {
 };
 
 dbConnection();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 if (process.env.NODE_ENV !== "test")
   app.listen(process.env.PORT || 3000, () => {

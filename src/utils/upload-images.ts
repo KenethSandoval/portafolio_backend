@@ -1,8 +1,5 @@
-import { existsSync, unlinkSync } from "fs";
 import { Projects } from "../components/projects/project.model";
-// import { Users } from "../components/auth/auth.model";
-
-// type modelsValid = typeof Projects | typeof Users;
+import { storageCloudImage } from "./storage-cloud";
 
 export function uploadImage(
   models: typeof Projects,
@@ -18,12 +15,9 @@ export function uploadImage(
       };
     }
 
-    const oldPath: string = `src/uploads/${model.image}`;
+    const result = await storageCloudImage(nameFile);
 
-    if (existsSync(oldPath)) {
-      unlinkSync(oldPath);
-    }
-    model.image = nameFile;
+    model.image = result?.url;
     await model.save();
     return {
       allData: () => true,

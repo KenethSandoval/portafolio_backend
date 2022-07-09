@@ -1,11 +1,10 @@
-import { success, error } from "../../utils/response";
-
+import { error, success } from "../../utils/response";
 import {
   create,
-  getAll,
-  getById,
   deleted,
   fileUpload,
+  getAll,
+  getById,
   returnImage,
 } from "./project.controller";
 
@@ -55,7 +54,7 @@ export const deleteProject: Handler = async (req, res) => {
 export const uploads: Handler = async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await fileUpload(id, req)();
+    const result = await fileUpload(req, id)();
     const data = result!.allData();
     return success(res, data, 200);
   } catch (e) {
@@ -68,7 +67,7 @@ export const viewImage: Handler = async (req, res) => {
   try {
     const result = await returnImage(image)();
     const data = result!.allData() as string;
-    return res.sendFile(data);
+    return success(res, data, 200);
   } catch (e) {
     return error(res, e.message, e.code);
   }
