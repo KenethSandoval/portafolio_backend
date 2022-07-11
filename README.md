@@ -7,13 +7,13 @@ Realizar un backend con un estricto tema de seguridad para tener solamente un us
 (proyectos propios), llevando el paradigma de programacion funcional con typescript y
 siguiendo los principios SOLID e implementando TDD
 
-[*] Modelo de usuario
+- [ ] Modelo de usuario
 
 - Email
 - Password
 - Fecha de acceso
 
-[*] Model de posts
+- [x] Modelo de posts
 
 - Titulo
 - Descripcion
@@ -24,8 +24,10 @@ siguiendo los principios SOLID e implementando TDD
 
 ## Diseño REST
 
-- Publico [] GET /projects: Todos los proyectos publicados
+- Publico GET /projects: Todos los proyectos publicados
 
-- Admin [] POST /login: Autenticacion del administrador [] POST /create-project: Publicar
-  un nuevo proyecto [] UPDATE /projects: Actualizar datos de algun proyecto [] DELETE
-  /projects: Eliminar algun proyecto
+- Admin 
+  * POST /login: Autenticacion del administrador 
+  * POST /create-project: Publicar un nuevo proyecto  
+  * UPDATE /projects: Actualizar datos de algun proyecto 
+  * DELETE /projects: Eliminar algun proyecto
